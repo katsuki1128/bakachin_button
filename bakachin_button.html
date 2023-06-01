@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 背景を設定 -->
+    <div class="bg">
+        <div class="bg">
+        </div>
+    </div>
+
+    <!-- データ出力場所 -->
+    <p id="output"></p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        // 日時をいい感じの形式にする関数
+        function convertTimestampToDatetime(timestamp) {
+            const _d = timestamp ? new Date(timestamp * 1000) : new Date();
+            const Y = _d.getFullYear();
+            const m = (_d.getMonth() + 1).toString().padStart(2, '0');
+            const d = _d.getDate().toString().padStart(2, '0');
+            const H = _d.getHours().toString().padStart(2, '0');
+            const i = _d.getMinutes().toString().padStart(2, '0');
+            const s = _d.getSeconds().toString().padStart(2, '0');
+            return `${Y}/${m}/${d} ${H}:${i}:${s}`;
+        }
+    </script>
+    <!-- 以下にfirebaseのコードを貼り付けよう -->
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        import {
+            getFirestore,
+            collection,
+            onSnapshot,
+            query,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAswHGTcleF0YHBYvNfv-Jr4XpmYb0qEIM",
+            authDomain: "bakachin-button.firebaseapp.com",
+            databaseURL: "https://bakachin-button-default-rtdb.firebaseio.com",
+            projectId: "bakachin-button",
+            storageBucket: "bakachin-button.appspot.com",
+            messagingSenderId: "145771980166",
+            appßId: "1:145771980166:web:442ce0dcf32e74d192f807"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+
+
+        // 🔽 追加
+        const db = getFirestore(app);
+
+        // データ取得処理
+
+        // 🔽 データ取得条件の指定（今回は時間の新しい順に並び替えて取得）
+        const q = query(collection(db, "bakachin_button"), orderBy("time", "desc"));
+
+        onSnapshot(q, (querySnapshot) => {
+            // console.log(querySnapshot.docs);
+
+            // chatapp.html
+            // 前項の`console.log()`下に記述
+
+            const documents = [];
+            querySnapshot.docs.forEach(function (doc) {
+                const document = {
+                    id: doc.id,
+                    data: doc.data(),
+                };
+                documents.push(document);
+            });
+
+            console.log(documents);
+
+            // chatapp.html
+            // 前項の`console.log()`下に記述
+
+            const htmlElements = [];
+            documents.forEach(function (document) {
+                htmlElements.push(`
+                <p id="${document.id}">
+                <p>${document.data.count} at ${convertTimestampToDatetime(document.data.time.seconds)}</p>
+                
+                `);
+            });
+
+            $("#output").html(htmlElements);
+
+
+        });
+
+
+
+    </script>
+
+
+</body>
+
+</html>

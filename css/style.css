@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 62.5%;
+    width: 500px;
+    background-image: url(../img/bg.jpg);
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+#output {
+    position: absolute;
+    top: 57px;
+    left: 227px;
+    font-size: 2rem;
+    color: rgb(82, 255, 82);
+    text-shadow: 0px 0px 10px rgb(82, 255, 82), 0px 0px 10px rgb(82, 255, 82), 0px 0px 10px rgb(82, 255, 82);
+    width: 520px;
+
+}
+
+p {
+    margin: 2px;
+}
+
+ul {
+    margin: 0 0 0 0px;
+    padding: 0 0 0 20px;
+
+}
+
+#howto {
+    color: #000;
+    font-size: 2.4rem;
+    text-align: left;
+    /* position: absolute;
+    top: 824px;
+    left: 50px; */
+}
+
+#explain {
+    color: #000;
+    font-size: 1.2rem;
+    text-align: left;
+    /* position: absolute;
+    top: 861px;
+    left: 50px; */
+    text-align: left;
+    width: 500px;
+}
+
+
+
+#container {
+    display: flex;
+    flex-wrap: nowrap;
+    width: autox;
+    padding: 10px;
+    /* border: 1px solid #000; */
+    position: absolute;
+    top: 824px;
+    left: 0px;
+}
+
+.explain_img img {
+    height: 200px;
+}
